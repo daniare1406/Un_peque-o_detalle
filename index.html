@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para ti ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #ffe6e6;
+      /* Fondo de corazones sutil */
+      background-image: url('https://www.transparenttextures.com/patterns/hearts.png');
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden;
+    }
+    .pantalla { 
+      display: none; 
+      padding: 20px; 
+      width: 100%;
+      max-width: 400px;
+    }
+    .activa { 
+      display: block; 
+      animation: fadeIn 0.8s ease-in; 
+    }
+    @keyframes fadeIn { 
+      from { opacity: 0; transform: scale(0.95); } 
+      to { opacity: 1; transform: scale(1); } 
+    }
+    .corazon-boton {
+      font-size: 90px;
+      cursor: pointer;
+      animation: latido 1.5s infinite;
+      background: none; 
+      border: none; 
+      padding: 0;
+      margin-top: 20px;
+    }
+    @keyframes latido {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+    img { 
+      width: 80%; 
+      max-width: 280px;
+      margin: 20px 0; 
+      object-fit: contain;
+    }
+    .btn {
+      background-color: #ff4d4d; 
+      color: white; 
+      border: none;
+      padding: 15px 20px; 
+      font-size: 16px; 
+      border-radius: 25px;
+      cursor: pointer; 
+      margin: 10px 5px; 
+      font-weight: bold; 
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+    }
+    .btn:active { 
+      transform: scale(0.95); 
+      background-color: #e60000;
+    }
+    .carta-final { 
+      background: white; 
+      padding: 30px; 
+      border-radius: 15px; 
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15); 
+    }
+    h1 { color: #d63031; font-size: 24px; margin-bottom: 5px; }
+    h2 { color: #d63031; font-size: 20px; }
+    p { color: #555; font-size: 16px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+
+  <!-- Audio de fondo -->
+  <audio id="musica" src="cancion.mp3" loop></audio>
+
+  <!-- Pantalla 1: El sobre / Inicio -->
+  <div id="p1" class="pantalla activa">
+    <h1 style="font-size: 28px;">Tengo algo para ti...</h1>
+    <button class="corazon-boton" onclick="iniciar()">❤️</button>
+    <p style="color: #ff4d4d; font-weight: bold; margin-top: 20px;">Toca el corazón</p>
+  </div>
+
+  <!-- Pantalla 2: Pregunta -->
+  <div id="p2" class="pantalla">
+    <h1>¿Me quieres?</h1>
+    <img src="patito.png" alt="Patito">
+    <br>
+    <button class="btn" onclick="cambiarPantalla('p3-yes')">Sí</button>
+    <button class="btn" onclick="cambiarPantalla('p3-no')">No</button>
+  </div>
+
+  <!-- Pantalla 3: Si dice que Sí -->
+  <div id="p3-yes" class="pantalla">
+    <h2>Ahhhh, entonces solo me quieres y no me amas? 🥺</h2>
+    <img src="bob_llorando.png" alt="Bob Llorando">
+    <br>
+    <button class="btn" onclick="cambiarPantalla('p4')">Te amo mucho 🥺❤️</button>
+  </div>
+
+  <!-- Pantalla 3: Si dice que No -->
+  <div id="p3-no" class="pantalla">
+    <h2>Entonces... Vete ya, si no encuentras motivo para seguir conmigo, ¿Para qué continuar? 🥀</h2>
+    <img src="valentin.png" alt="Valentín Elizalde">
+    <br>
+    <button class="btn" onclick="cambiarPantalla('p4')">Es mentira y yo te amo con todo mi corazón mi amor 🥺❤️</button>
+  </div>
+
+  <!-- Pantalla 4: Carta Final -->
+  <div id="p4" class="pantalla">
+    <div class="carta-final">
+      <h1>¡Yo te amo más patita! 🦆❤️</h1>
+      <p>Ya vamos 4 meses, y quería darte este pequeño detalle solo para recordarte lo mucho que me importas y lo feliz que me haces. Realmente con palabras es difícil explicar lo que me haces sentir, realmente cuando estoy a tu lado, cuando te abrazo, cuando siento tu calor ❤️‍🔥, toda esa niebla mental, la ansiedad, el estrés, TODO eso se va, y solo siento una gran paz en mi corazón 🕊️❤️. Perdón si a veces digo cosas que te incomodan, perdón las veces que soy intenso (como hace rato) o las veces que siento que no me amas 😣, te juro que lastimarte no es mi intención, solo... es miedo 😣; miedo a perder lo que tengo contigo, miedo a perder a una persona tan perfecta para mí como lo eres tú 🥺❤️. Ya para terminar, solo quiero decir que me haces sentir muy orgulloso, te admiro muchísimo Mel, y hagas lo que hagas, siempre trataré de apoyarte princesa 💕🥰</p>
+      <p><strong>Con amor, tu patito. 🥺🦆</strong></p>
+    </div>
+  </div>
+
+  <script>
+    function iniciar() {
+      // Inicia la música al presionar el corazón
+      var audio = document.getElementById('musica');
+      audio.play().catch(function(error) {
+        console.log("El navegador bloqueó el autoplay", error);
+      });
+      cambiarPantalla('p2');
+    }
+
+    function cambiarPantalla(idDestino) {
+      // Ocultamos todas las pantallas
+      var pantallas = document.querySelectorAll('.pantalla');
+      pantallas.forEach(function(pantalla) {
+        pantalla.classList.remove('activa');
+      });
+      // Mostramos la seleccionada
+      document.getElementById(idDestino).classList.add('activa');
+    }
+  </script>
+
+</body>
+</html>
